@@ -20,18 +20,15 @@ df[num_cols] = scaler.fit_transform(df[num_cols])
 print(df.isnull().sum())
 print(df.dtypes)
 
-# ...existing code...
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Visualize outliers using boxplots
 for col in ['Age', 'Fare', 'SibSp', 'Parch']:
     plt.figure(figsize=(6, 2))
     sns.boxplot(x=df[col])
     plt.title(f'Boxplot of {col}')
     plt.show()
 
-# Remove outliers using the IQR method
 for col in ['Age', 'Fare', 'SibSp', 'Parch']:
     Q1 = df[col].quantile(0.25)
     Q3 = df[col].quantile(0.75)
@@ -40,4 +37,4 @@ for col in ['Age', 'Fare', 'SibSp', 'Parch']:
     upper_bound = Q3 + 1.5 * IQR
     df = df[(df[col] >= lower_bound) & (df[col] <= upper_bound)]
 
-# ...existing code...
+df.to_csv('Titanic-Dataset-Cleaned.csv', index=False)
